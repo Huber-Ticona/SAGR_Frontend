@@ -14,25 +14,27 @@
     export let vendedor;
     export let total;
     export let fecha;
-
-
-    let new_modalData = {
-      tipo_doc: tipo_doc,
-      folio: folio,
-      interno: interno,
-      total : total,
-      vinculaciones: vinculaciones,
-      historial_retiros: historial_retiros,
-      observacion:observacion,
-      detalle: [],
-      vendedor: vendedor,
-      revisor:revisor,
-      fecha: fecha
-    };
+    export let extra_data;
 
     async function openModal(tipo_doc,interno) {
+        // Definimos los datos del modal.
+        let new_modalData = {
+          tipo_doc: tipo_doc,
+          folio: folio,
+          interno: interno,
+          total : total,
+          vinculaciones: vinculaciones,
+          historial_retiros: historial_retiros,
+          observacion:observacion,
+          detalle: [],
+          vendedor: vendedor,
+          revisor:revisor,
+          fecha: fecha,
+          extra_data : extra_data
+        };
         if(tipo_doc=='boleta' || tipo_doc =='factura'){
-            console.log('BOL-FACT DETECTADA -> Fetch items')
+            console.log('<botonVenta> BOL-FACT DETECTADA -> Fetch items')
+              console.log('tipo doc : ' + tipo_doc + ' | interno: '  + interno)
             try {
                 new_modalData.detalle = await obt_item_bol_fact(tipo_doc,interno);
                 console.log( new_modalData)
@@ -98,6 +100,10 @@
         <!-- SE ANALIZA DESPACHO DOMICILIO -->
         {#if despacho == "SI"}
             <span class='circle_brown'></span>
+        {/if}
+
+        {#if tipo_doc == 'guia' && ( extra_data[0] == "BOLETA" || extra_data[0] == "FACTURA" )}
+            <span class='circle_doc'></span>
         {/if}
 
         <!--

@@ -3,12 +3,15 @@ import { PUBLIC_API_PROXY } from "$env/static/public";
 export async function fetchData(fecha) {
     try {
         const response = await fetch(
-            PUBLIC_API_PROXY + "/obtener/docs/" + fecha
+            PUBLIC_API_PROXY + "/obtener/docs/" + fecha,
+            {
+                mode: "cors",
+            }
         );
         const result = await response.json();
         return result;
     } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error al obtener datos del servidor.");
         throw error;
     }
 }
@@ -56,6 +59,7 @@ export async function obt_documentos_x_folio(tipo_doc, folio) {
     try {
         const response = await fetch(`${PUBLIC_API_PROXY}/${base_url}`, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors",
         });
         const result = await response.json();
         console.log(result);
@@ -123,5 +127,62 @@ export async function obt_pendientes(fecha1, fecha2) {
     } catch (error) {
         console.error("Error fetching data:", error);
         throw error;
+    }
+}
+
+/* PARAMETROS PORTERIA */
+export async function obt_parametros_porteria({ fetch }) {
+    console.log("|-- Obteniendo parametros porteria ... ");
+    let url = `${PUBLIC_API_PROXY}/parametros_porteria`;
+    console.log("url: ", url);
+    try {
+        const response = await fetch(url, { method: "post" });
+        const result = await response.json();
+        console.log("|-- Parametros porteria: ", result);
+        return result;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        throw error;
+    }
+}
+
+export async function registrar_observaciones(
+    observaciones,
+    nueva_observacion,
+    tipo_doc,
+    interno
+) {
+    console.log("|--- API actualizar OBSERVACION ----|");
+    console.log("observaciones: ", observaciones);
+    console.log("Nuevba obs: " + nueva_observacion);
+    console.log("tipo_doc | interno : " + tipo_doc + " | " + interno);
+    let lista = observaciones;
+    lista.push(nueva_observacion);
+    console.log("Nueva LISTA: ", lista);
+    let base_url = `${PUBLIC_API_PROXY}/registrar_observacion`;
+
+    console.log(base_url);
+
+    const new_data = {
+        tipo_doc: tipo_doc,
+        interno: interno,
+        lista: JSON.stringify(lista),
+    };
+    console.log(new_data);
+
+    try {
+        const response = await fetch(base_url, {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(new_data),
+        });
+
+        const result = await response.json();
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
     }
 }

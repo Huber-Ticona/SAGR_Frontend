@@ -13,6 +13,7 @@ const modalDataDefaults = {
     vendedor: "",
     revisor: "",
     fecha: "",
+    extra_data: ["Ninguno", 0],
 };
 
 // Crea el store con el objeto modalData y sus valores predeterminados

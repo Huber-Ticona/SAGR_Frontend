@@ -3,6 +3,7 @@
     import {actualizar_retiro} from '../lib/datos'
     import { modalData } from '../stores/PanelStore';
     
+    export let parametros_porteria;
     let LocalModalData;
     let aux_detalle;
 
@@ -88,7 +89,11 @@
       console.log(new_dato);
       const resp = await actualizar_retiro(LocalModalData.tipo_doc, LocalModalData.interno,new_dato)
       if(resp.data){
-        location.reload()
+        // Cerrar el modal cuando el registro es exitoso
+        /* const myModal = document.querySelector('#exampleModal');
+        const modal = bootstrap.Modal.getInstance(myModal);    
+        modal.hide(); */
+        alert(LocalModalData.tipo_doc + " : " + LocalModalData.folio + " -> Actualizada Correctamente.")
       }
     }
   }
@@ -149,7 +154,15 @@
                 </tbody>
               </table>
             </div>
-            <ModalList vinculaciones={LocalModalData.vinculaciones} historial_retiros={LocalModalData.historial_retiros} observacion={LocalModalData.observacion}/>
+            <ModalList 
+            extra_data={LocalModalData.extra_data} 
+            vinculaciones={LocalModalData.vinculaciones} 
+            historial_retiros={LocalModalData.historial_retiros} 
+            observacion={LocalModalData.observacion}
+            {parametros_porteria}
+            tipo_doc = {LocalModalData.tipo_doc}
+            interno = {LocalModalData.interno}
+            />
           
         </div>
 

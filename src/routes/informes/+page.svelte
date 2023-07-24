@@ -4,7 +4,6 @@
 </svelte:head>
 
 
-
 <div class="d-flex flex-column text-center">
   <div>
     <div class="mb-2">Estadisticas <button class="btn-estadistica" on:click={() => toggleCollapse('contenido-estadisticas')}>Ver</button></div>
@@ -25,6 +24,7 @@
         <div id="mensaje">
         </div>
         <Panel {venta} />
+        <Modal2 parametros_porteria={data.parametros_porteria}/>
   
     </div>
   </div>
@@ -37,8 +37,11 @@
 
 <script>
   import Panel from '../../components/Panel.svelte';
-   import {obt_pendientes} from '../../lib/datos'
+  import Modal2 from '../../components/Modal2.svelte';
+  import {obt_pendientes} from '../../lib/datos'
 
+  // PROPS GLOBALES
+  export let data;
   function toggleCollapse(id) {
     const content = document.getElementById(id);
     content.style.display = content.style.display === "none" ? "block" : "none";

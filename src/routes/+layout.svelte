@@ -1,4 +1,21 @@
+<script>
+  import { User } from '../stores/user'
+  import { onDestroy, onMount } from 'svelte';
+  import {Usuario} from '../stores/storable'
+  import { link } from '@sveltejs/kit';
+  let usuario;
 
+  $: {usuario = $Usuario;
+      console.log("usuario layout: ",usuario);
+    }
+    onMount( () =>{
+      if(!usuario){
+        console.log('No existe usuario --> redirect')
+        link('/login')
+      }}
+    )
+
+</script>
 <div class="app">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -26,7 +43,7 @@
               <li><a class="dropdown-item" href="/documentos/facturas">Facturas</a></li>
               <li><a class="dropdown-item" href="/documentos/guias">Guias</a></li>
               <li><a class="dropdown-item" href="/documentos/creditos">Nota Creditos </a></li>
-              <li><a class="dropdown-item" href="/#">Another action</a></li>
+              <li><a class="dropdown-item" href="/documentos?tipo_doc=boleta&aux1=123&aux2=333">Another action</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/#">Something else here</a></li>
             </ul>
@@ -35,11 +52,18 @@
           <li class="nav-item">
             <a class="nav-link" href="/informes" >Estadisticas</a>
           </li>
+        <!-- login/logout -->
+        {#if usuario }
+        <li class="nav-item">
+          <button class="nav-link" on:click={() => Usuario.set(null)} >Logout :{usuario.nombre}</button>
+        </li>
+        {:else}
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Iniciar session</a>
+        </li>
+        {/if}
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+      
       </div>
     </div>
   </nav>

@@ -3,8 +3,8 @@
     import CuerpoTabla from './CuerpoTabla.svelte';
 
     export let tipo_doc;
-    export let folio; /* folio del tipo_doc. Puede ser tipo_orden= ['dim','elab',etc] */
-    export let folio2; /* Si existe folio='tipo_orden' -> folio2= nro_orden */
+    export let folio = 0; /* folio del tipo_doc. Puede ser tipo_orden= ['dim','elab',etc] */
+    export let folio2 = 0; /* Si existe folio='tipo_orden' -> folio2= nro_orden */
 
     
     let fecha1 = '2023-03-06';
@@ -47,15 +47,14 @@
             <th scope="col" class="text-center">Cliente</th>
             <th scope="col" class="text-center">Detalle</th>
             <th scope="col" class="text-center">Vendedor</th>
-
-          
            
         </tr>
         </thead>
         <tr>
             <td class="text-center">
                 <div><input type="number"  value={tipo_doc === 'ordenes' ? folio2 : folio} 
-                    id="folio"><button class="btn btn-secondary" on:click={buscar_x_folio}>Buscar</button></div>
+                    on:input={(e) => {folio = e.target.value ; console.log(e.target.value)} }   id="folio">
+                    <button class="btn btn-secondary" on:click={buscar_x_folio} >Buscar</button></div>
             </td>
             <td class="text-center">
                 <div class="d-flex flex-column justify-items-center">
@@ -72,9 +71,9 @@
         </tr>
         <tbody id="cuerpo-tabla">
            
-           <CuerpoTabla documentos={documentos} />
+           <CuerpoTabla documentos={documentos} {tipo_doc} />
         </tbody>
     </table>
     
-
+    
 </div>

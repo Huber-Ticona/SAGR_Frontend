@@ -1,6 +1,6 @@
 <script>
     
-    import Modal2 from './Modal2.svelte';
+    
     import BotonVenta from './BotonVenta.svelte';
 
     export let venta;
@@ -27,6 +27,7 @@
              revisor = {item[9]}
              total = {item[3]}
              fecha = {item[11]}
+             extra_data = {[ "NINGUNO" , 0 ]}
              />
             {/each}
           </div>
@@ -48,6 +49,7 @@
               revisor = {item[9]}
               total = {item[3]}
               fecha = {item[11]}
+              extra_data = {[ "NINGUNO" , 0 ]}
               />
             {/each}
           </div>
@@ -69,6 +71,7 @@
              revisor = {item[8]}
              total = {item[3]}
              fecha = {item[10]}
+             extra_data = {[ item[6].replace(/^"(.*)"$/, '$1') , item[11]]}
              />
              
             {/each}
@@ -77,5 +80,4 @@
       </div> 
     </div>
 
-    <Modal2 />
 
