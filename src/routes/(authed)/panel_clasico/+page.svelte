@@ -1,8 +1,8 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { fetchData } from "$lib/datos";
-  import Panel from "../../components/Panel.svelte";
-  import Modal2 from "../../components/Modal2.svelte";
+  import Panel from "../../../components/Panel.svelte";
+  import Modal2 from "../../../components/Modal2.svelte";
   
   // PROPS GLOBALES
   export let data;

@@ -1,7 +1,7 @@
 <script>
     import { page } from '$app/stores';
     import Tabla from '../../Tabla.svelte';
-    import Modal2 from '../../../../components/Modal2.svelte';
+    import Modal2 from '../../../../../components/Modal2.svelte';
     
     // PROPS GLOBALES
     export let data;

@@ -186,3 +186,32 @@ export async function registrar_observaciones(
         console.error("Error al obtener los datos:", error);
     }
 }
+// LOGIN
+export async function login(usuario, contra) {
+    console.log("login ...", usuario, contra);
+    let url = `${PUBLIC_API_PROXY}/login`;
+    console.log("|------- API login ---------|");
+    console.log("url: ", url);
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ usuario: usuario, contra: contra }),
+        });
+        const result = await response.json();
+        /* console.log(result)
+        if(result.success){
+            console.log('EXITO --> GUARDANDO USUARIO EN STORAGE')
+            
+        }else
+        {
+            console.log('FALLO --> INTENTE DENUEVO')
+        } */
+        return result;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        throw error;
+    }
+}

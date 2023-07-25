@@ -1,5 +1,5 @@
 <script>
-    import {obt_documentos_x_folio, obt_documentos_x_fecha } from '../../lib/datos'
+    import {obt_documentos_x_folio, obt_documentos_x_fecha } from '../../../lib/datos'
     import CuerpoTabla from './CuerpoTabla.svelte';
 
     export let tipo_doc;

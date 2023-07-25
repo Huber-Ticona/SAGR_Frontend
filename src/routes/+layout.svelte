@@ -2,18 +2,11 @@
   import { User } from '../stores/user'
   import { onDestroy, onMount } from 'svelte';
   import {Usuario} from '../stores/storable'
-  import { link } from '@sveltejs/kit';
-  let usuario;
+  
+  export let data;
 
-  $: {usuario = $Usuario;
-      console.log("usuario layout: ",usuario);
-    }
-    onMount( () =>{
-      if(!usuario){
-        console.log('No existe usuario --> redirect')
-        link('/login')
-      }}
-    )
+ 
+    
 
 </script>
 <div class="app">
@@ -53,9 +46,12 @@
             <a class="nav-link" href="/informes" >Estadisticas</a>
           </li>
         <!-- login/logout -->
-        {#if usuario }
+        {#if data.datos_usuario }
         <li class="nav-item">
-          <button class="nav-link" on:click={() => Usuario.set(null)} >Logout :{usuario.nombre}</button>
+          <form method="POST" action="/logout">
+            <button class="nav-link bg-none border-none">log out</button>
+          </form>
+          <!-- <button class="nav-link" on:click={() => Usuario.set(null)} >Logout :{data.datos_usuario.nombre}</button> -->
         </li>
         {:else}
         <li class="nav-item">
@@ -70,6 +66,7 @@
   <main>
     <slot />
   </main>
+
 
   <footer class="footer footer-center w-full p-4 bg-gray-300 text-gray-800">
     <div class="text-center">

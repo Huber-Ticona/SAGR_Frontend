@@ -1,6 +1,6 @@
 
 <script>
-    import BotonVenta from '../../components/BotonVenta.svelte';
+    import BotonVenta from '../../../components/BotonVenta.svelte';
     export let documentos;
     export let tipo_doc;
 </script>

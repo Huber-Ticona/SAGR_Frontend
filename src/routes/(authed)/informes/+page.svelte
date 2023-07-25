@@ -34,14 +34,18 @@
     <div id="contenido-despacho-atrasado" style="display: none;">Contenido Despacho Domicilio Atrasado...</div>
   </div>
 </div>
+<div>
+  <h1>{ data.datos_usuario.nombre}</h1>
+</div>
 
 <script>
-  import Panel from '../../components/Panel.svelte';
-  import Modal2 from '../../components/Modal2.svelte';
-  import {obt_pendientes} from '../../lib/datos'
+  import Panel from '../../../components/Panel.svelte';
+  import Modal2 from '../../../components/Modal2.svelte';
+  import {obt_pendientes} from '../../../lib/datos'
 
   // PROPS GLOBALES
   export let data;
+
   function toggleCollapse(id) {
     const content = document.getElementById(id);
     content.style.display = content.style.display === "none" ? "block" : "none";

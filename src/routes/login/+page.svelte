@@ -58,13 +58,13 @@
         <div class="col">
             <div class="formulario">
                 <p>Iniciar sesión</p>
-                <form action="{PUBLIC_API_PROXY}/login" method="POST" on:submit|preventDefault={login}>
+                <form  method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="nombre_usuario" placeholder="Usuario" bind:value={usuario}>
+                        <input type="text" class="form-control" name="usuario" placeholder="Usuario" >
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control" name="contraseña" placeholder="Contraseña" bind:value={contra}>
+                        <input type="password" class="form-control" name="contra" placeholder="Contraseña" >
                     </div>
                     <div class="col text-center">
                         <br>
@@ -75,3 +75,7 @@
         </div>
     </div>
 </div>
+
+<form method="POST">
+	<button>log in</button>
+</form>
