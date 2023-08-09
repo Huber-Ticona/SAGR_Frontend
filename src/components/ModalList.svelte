@@ -70,8 +70,8 @@
                     <div>ORDENES: 
                     {#each vinculaciones.ordenes as orden }
                     <a class="btn btn-light" data-sveltekit-reload
-                    href="/documentos/ordenes/{linkOrden(JSON.parse(orden).tipo)}/{JSON.parse(orden).folio}">
-                        {linkOrden(JSON.parse(orden).tipo)}_{JSON.parse(orden).folio} </a>
+                    href="/documentos/ordenes/{JSON.parse(orden).folio}/?tipo_orden={JSON.parse(orden).tipo}">
+                        {JSON.parse(orden).tipo}_{JSON.parse(orden).folio} </a>
                     {/each}
                     </div>
                 {/if}

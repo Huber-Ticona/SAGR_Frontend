@@ -2,12 +2,6 @@
     import { PUBLIC_API_PROXY } from "$env/static/public";
     import { Usuario } from '../../stores/storable'
     
-    let usuario_activo;
-
-    $: usuario_activo = $Usuario;
-
-	let value = 'nuevo valor';
-
     let usuario = '';
     let contra = '';
 
@@ -41,17 +35,7 @@
     }
 
 </script>
-<h1>LocalStorage Custom Store</h1>
-<input bind:value>
-<button >
-	Set Data
-</button>
-<button on:click={() => Usuario.set(null) }>
-	logout
-</button>
-<h2>
-	Data: 
-</h2>
+
 
 <div class="container">
     <div class="row">
@@ -75,7 +59,3 @@
         </div>
     </div>
 </div>
-
-<form method="POST">
-	<button>log in</button>
-</form>

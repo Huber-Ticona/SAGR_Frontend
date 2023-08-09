@@ -51,15 +51,18 @@ export async function obt_detalle_guia(nro_interno) {
     }
 }
 
-export async function obt_documentos_x_folio(tipo_doc, folio) {
+export async function obt_documentos_x_folio(tipo_doc, folio, tipo_orden) {
     console.log("|--- API DOCUMENTOS X FOLIO ----|");
     console.log(tipo_doc + " folio: " + folio);
     let base_url = `documentos/${tipo_doc}/folio/${folio}`;
+    if (tipo_orden) {
+        console.log("Existe orden, modiciando url");
+        base_url = `documentos/${tipo_doc}/${tipo_orden}/folio/${folio}`;
+    }
     console.log(base_url);
     try {
         const response = await fetch(`${PUBLIC_API_PROXY}/${base_url}`, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors",
         });
         const result = await response.json();
         console.log(result);
@@ -68,24 +71,65 @@ export async function obt_documentos_x_folio(tipo_doc, folio) {
         console.error("Error al obtener los datos:", error);
     }
 }
-export async function obt_documentos_x_fecha(tipo_doc, fecha1, fecha2) {
+export async function obt_documentos_x_fecha(
+    tipo_doc,
+    fecha1,
+    fecha2,
+    tipo_orden
+) {
     console.log("|--- API DOCUMENTOS X FECHA ----|");
     console.log("doc: " + tipo_doc + " fechas: " + fecha1, " - " + fecha2);
+
     let base_url = `documentos/${tipo_doc}/fecha/${fecha1}/${fecha2}`;
+    if (tipo_doc === "ordenes") {
+        const ordenes = [
+            "dimensionado",
+            "elaboracion",
+            "carpinteria",
+            "pallets",
+        ];
+        if (tipo_orden != null && ordenes.includes(tipo_orden)) {
+            console.log("Existe orden: " + tipo_orden + " -> modiciando url");
+            base_url = `documentos/${tipo_doc}/${tipo_orden}/fecha/${fecha1}/${fecha2}`;
+        } else {
+            console.log("Error con tipo_orden, null o erroneo.");
+            return [];
+        }
+    }
     console.log(base_url);
     try {
         const response = await fetch(`${PUBLIC_API_PROXY}/${base_url}`, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
         });
         const result = await response.json();
-        console.log(typeof result);
+        //console.log(typeof result);
+        console.log("Lista: ", result);
+        return result;
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+    }
+}
+export async function obt_documentos_x_cliente(tipo_doc, cliente, tipo_orden) {
+    console.log("|--- API DOCUMENTOS X cliente ----|");
+    console.log(tipo_doc + " cliente: " + cliente);
+    let base_url = `documentos/${tipo_doc}/cliente/${cliente}`;
+    if (tipo_orden) {
+        console.log("Existe orden, modiciando url");
+        base_url = `documentos/${tipo_doc}/${tipo_orden}/cliente/${cliente}`;
+    }
+    console.log("base_url: ", base_url);
+
+    try {
+        const response = await fetch(`${PUBLIC_API_PROXY}/${base_url}`, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+        });
+        const result = await response.json();
         console.log(result);
         return result;
     } catch (error) {
         console.error("Error al obtener los datos:", error);
     }
 }
-
 export async function actualizar_retiro(tipo_doc, interno, new_data) {
     console.log("|--- API actualizar retiro ----|");
     console.log("doc: " + tipo_doc + " | interno: " + interno);

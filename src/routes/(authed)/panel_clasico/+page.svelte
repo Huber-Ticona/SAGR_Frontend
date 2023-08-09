@@ -1,6 +1,7 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { fetchData } from "$lib/datos";
+  import { formatFecha } from "$lib/tools";
   import Panel from "../../../components/Panel.svelte";
   import Modal2 from "../../../components/Modal2.svelte";
   
@@ -12,12 +13,7 @@
 
   let fecha_actual = formatFecha(new Date())
   // Función para formatear la fecha en el formato "YYYY-MM-DD"
-  function formatFecha(fecha) {
-    const year = fecha.getFullYear();
-    const month = String(fecha.getMonth() + 1).padStart(2, '0');
-    const day = String(fecha.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
+  
   async function loadData(fecha) {
     try {
       venta = await fetchData(fecha);
@@ -61,4 +57,4 @@
 <div class="text-center"><input type="date" id="" name="fecha" value={fecha_actual} on:change={mostrar}></div>
 <Panel venta={venta}/>
 
-<Modal2 parametros_porteria={data.parametros_porteria}/>
+<Modal2 parametros_porteria={data.parametros_porteria} usuario={data.datos_usuario}/>

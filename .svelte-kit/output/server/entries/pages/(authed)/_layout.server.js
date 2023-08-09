@@ -3,13 +3,18 @@ import { o as obt_parametros_porteria } from "../../../chunks/datos.js";
 async function load({ cookies, url, fetch }) {
   let usuario;
   if (!cookies.get("logged_in")) {
-    console.log("No existe cokie de usuario");
+    console.log("(authed) No existe cokie de usuario");
     usuario = null;
     throw redirect(303, `/login?redirectTo=${url.pathname}`);
   } else {
     usuario = JSON.parse(cookies.get("logged_in"));
-    console.log("Cokiie encontrada: ", usuario);
-    console.log("nombre usuario: ", usuario.nombre);
+    console.log("(authed) Cokie encontrada: ", usuario);
+    console.log("(authed) nombre usuario: ", usuario.nombre);
+  }
+  const isLoginPage = url.pathname === "/login";
+  if (!usuario && isLoginPage) {
+    console.log("(authed) isloginPage: ", isLoginPage);
+    return { datos_usuario: null };
   }
   const parametros_porteria = await obt_parametros_porteria({ fetch });
   return {

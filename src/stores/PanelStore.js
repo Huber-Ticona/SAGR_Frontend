@@ -18,3 +18,12 @@ const modalDataDefaults = {
 
 // Crea el store con el objeto modalData y sus valores predeterminados
 export const modalData = writable(modalDataDefaults);
+
+const modalExtraDataDefault = {
+    documento: "",
+    folio: 0,
+    fecha: "",
+    detalle: {},
+    vinculaciones: {},
+};
+export const modalExtraData = writable(modalExtraDataDefault);

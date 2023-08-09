@@ -4,13 +4,15 @@
     import { modalData } from '../stores/PanelStore';
     
     export let parametros_porteria;
+    export let usuario;
+
     let LocalModalData;
     let aux_detalle;
 
     // Suscribirse a los cambios del store
     $: {LocalModalData = $modalData ;
       aux_detalle = $modalData ? JSON.parse(JSON.stringify($modalData.detalle)) : null;
-      console.log('Inicializando localmodaldata y auxdetalle.') }
+      console.log('Modal2: Inicializando localmodaldata y auxdetalle.') }
 
     function increase(index) {
         if( (LocalModalData.detalle[index][2]+ 1) <= LocalModalData.detalle[index][1])
@@ -33,6 +35,7 @@
     console.log('----- GUARDANDO CAMBIOS: ', LocalModalData.tipo_doc, LocalModalData.interno)
     console.log('detalle old: ',aux_detalle)
     console.log('detalle actual: ',LocalModalData.detalle)
+    console.log("datos_usuario: ", usuario)
     let estado = true; // checkea si se actualiza el documento o no.
     let estado_retiro = "NO RETIRADO";
     let total_retirada = 0;
@@ -86,13 +89,17 @@
       new_dato.push(l_descripciones);
       new_dato.push(l_ret_anterior);
       new_dato.push(l_retirado); 
+      new_dato.push(usuario.nombre); //SE ENVIA USUARIO
+
       console.log(new_dato);
+
       const resp = await actualizar_retiro(LocalModalData.tipo_doc, LocalModalData.interno,new_dato)
       if(resp.data){
         // Cerrar el modal cuando el registro es exitoso
-        /* const myModal = document.querySelector('#exampleModal');
+        // Cerrar el modal cuando el registro es exitoso
+        const myModal = document.querySelector('#exampleModal');
         const modal = bootstrap.Modal.getInstance(myModal);    
-        modal.hide(); */
+        modal.hide();
         alert(LocalModalData.tipo_doc + " : " + LocalModalData.folio + " -> Actualizada Correctamente.")
       }
     }
@@ -127,6 +134,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          
             <div class="container-fluid">
                  <table class="table">
                 <thead>

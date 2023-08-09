@@ -1,25 +1,20 @@
 <script>
-    import {obt_documentos_x_folio, obt_documentos_x_fecha } from '../../../lib/datos'
+    import {obt_documentos_x_folio, obt_documentos_x_fecha, obt_documentos_x_cliente } from '../../../lib/datos'
     import CuerpoTabla from './CuerpoTabla.svelte';
+    import {formatFecha} from '$lib/tools'
 
     export let tipo_doc;
-    export let folio = 0; /* folio del tipo_doc. Puede ser tipo_orden= ['dim','elab',etc] */
-    export let folio2 = 0; /* Si existe folio='tipo_orden' -> folio2= nro_orden */
-
+    export let folio = 0; 
+    export let tipo_orden; 
     
-    let fecha1 = '2023-03-06';
-    let fecha2 = '2023-03-06';
-    
+    let fecha1 = formatFecha( new Date());
+    let fecha2 = formatFecha( new Date());
+    let cliente = ''
     let documentos = [] 
 
     async function buscar_x_folio(){
-        console.log( tipo_doc + ': buscando x folio ...')
-        if(tipo_doc != 'ordenes'){
-            console.log('buscando doc bol.fact guia credi')
-            documentos = await obt_documentos_x_folio(tipo_doc, folio )
-        }else{
-            console.log('buscando orden')
-        }
+        console.log( tipo_doc + ': buscando x folio ...',folio)
+        documentos = await obt_documentos_x_folio(tipo_doc, folio,tipo_orden )
         
     }
     async function buscar_x_fecha(){
@@ -27,14 +22,23 @@
         console.log('|-- Fecha1: ' + fecha1 + ' - Fecha2: ' + fecha2)
         if(fecha1 && fecha2){
             console.log('existe fecha1 y 2')
-            documentos = await obt_documentos_x_fecha(tipo_doc,fecha1,fecha2)
-            //console.log('JSON -',documentos)
-
+            documentos = await obt_documentos_x_fecha(tipo_doc,fecha1,fecha2,tipo_orden)
         }else{
             alert('Ingrese rango de fechas.')
         }
         //obt_documentos_x_fecha(tipo_doc,)
     }
+    async function buscar_x_cliente(){
+        console.log( tipo_doc + ': buscando x cliente ...')
+        console.log('|-- cliente: ' + cliente)
+        if(cliente !== ''){
+            documentos = await obt_documentos_x_cliente(tipo_doc,cliente,tipo_orden)
+        }else{
+            alert('Ingrese cliente.')
+        }
+        //obt_documentos_x_fecha(tipo_doc,)
+    }
+
     
 </script>
 <div class="table-responsive">
@@ -52,7 +56,7 @@
         </thead>
         <tr>
             <td class="text-center">
-                <div><input type="number"  value={tipo_doc === 'ordenes' ? folio2 : folio} 
+                <div><input type="number"  value={folio} 
                     on:input={(e) => {folio = e.target.value ; console.log(e.target.value)} }   id="folio">
                     <button class="btn btn-secondary" on:click={buscar_x_folio} >Buscar</button></div>
             </td>
@@ -64,14 +68,16 @@
                  </div>
             </td>
             <td class="text-center"><div><input type="number" disabled><button class="btn btn-secondary"  disabled>Buscar</button></div></td>
-            <td class="text-center"><div><input type="text"><button class="btn btn-secondary" >Buscar</button></div></td>
+            <td class="text-center"><div><input type="text" value = {cliente} 
+                on:input={(e) => {cliente = e.target.value ; console.log("Cliente input: ", e.target.value)} }  >
+                <button class="btn btn-secondary" on:click={buscar_x_cliente} >Buscar</button></div></td>
             <td class="text-center"><div><input type="number"  disabled><button class="btn btn-secondary" disabled >Buscar</button></div></td>
             <td class="text-center"><div><input type="number"  disabled><button class="btn btn-secondary"  disabled >Buscar</button></div></td>
 
         </tr>
         <tbody id="cuerpo-tabla">
            
-           <CuerpoTabla documentos={documentos} {tipo_doc} />
+           <CuerpoTabla {documentos} {tipo_doc} {tipo_orden}/>
         </tbody>
     </table>
     

@@ -71,11 +71,7 @@
       return 'linear-gradient(to top, #00ff00 0%, #99ff33 100%)'
     }
   }
-  function sayHello(valor) {
-		dispatch('message', {
-			text: valor
-		});
-	}
+  
 </script>
 <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="boton_panel" 
     style="--color:{getColor(estado_retiro)}" on:click={() => openModal(tipo_doc,interno)} >

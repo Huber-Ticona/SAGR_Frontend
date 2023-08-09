@@ -24,7 +24,7 @@
         <div id="mensaje">
         </div>
         <Panel {venta} />
-        <Modal2 parametros_porteria={data.parametros_porteria}/>
+        <Modal2 parametros_porteria={data.parametros_porteria} usuario={data.datos_usuario}/>
   
     </div>
   </div>
@@ -34,14 +34,13 @@
     <div id="contenido-despacho-atrasado" style="display: none;">Contenido Despacho Domicilio Atrasado...</div>
   </div>
 </div>
-<div>
-  <h1>{ data.datos_usuario.nombre}</h1>
-</div>
+
 
 <script>
   import Panel from '../../../components/Panel.svelte';
   import Modal2 from '../../../components/Modal2.svelte';
-  import {obt_pendientes} from '../../../lib/datos'
+  import {obt_pendientes} from '$lib/datos'
+  import {formatFecha} from '$lib/tools'
 
   // PROPS GLOBALES
   export let data;
@@ -52,7 +51,7 @@
   }
   let venta={ boletas: [], facturas: [], guias: [] };
   let pendienteFecha1 = '2021-01-01';
-  let pendienteFecha2 = '2023-03-06';
+  let pendienteFecha2 = formatFecha(new Date());
 
   async function mostrar_pendientes(){
     //const fecha = event.target.value;

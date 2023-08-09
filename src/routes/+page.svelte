@@ -1,2 +1,7 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div class="titulo-1">Bienvenido al Sistema de Retiros.</div>
+
+<style>
+  .titulo-1{
+    font-size: 2rem;
+  }
+</style>

@@ -31,25 +31,26 @@
               Documentos
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item" href="/documentos/ordenes">Ordenes</a></li>
-              <li><a class="dropdown-item" href="/documentos/boletas">Boletas</a></li>
-              <li><a class="dropdown-item" href="/documentos/facturas">Facturas</a></li>
-              <li><a class="dropdown-item" href="/documentos/guias">Guias</a></li>
-              <li><a class="dropdown-item" href="/documentos/creditos">Nota Creditos </a></li>
-              <li><a class="dropdown-item" href="/documentos?tipo_doc=boleta&aux1=123&aux2=333">Another action</a></li>
+              <li><a class="dropdown-item" data-sveltekit-reload href="/documentos/ordenes">Ordenes</a></li>
+              <li><a class="dropdown-item" data-sveltekit-reload href="/documentos/boletas">Boletas</a></li>
+              <li><a class="dropdown-item" data-sveltekit-reload href="/documentos/facturas">Facturas</a></li>
+              <li><a class="dropdown-item" data-sveltekit-reload href="/documentos/guias">Guias</a></li>
+              <li><a class="dropdown-item" data-sveltekit-reload href="/documentos/creditos">Nota Creditos </a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/#">Something else here</a></li>
+              <li><a class="dropdown-item" href="/informes">Estadisticas</a></li>
+              <li><a class="dropdown-item" href="/releases">releases</a></li>
+
             </ul>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="/informes" >Estadisticas</a>
-          </li>
+          </li> -->
         <!-- login/logout -->
         {#if data.datos_usuario }
         <li class="nav-item">
           <form method="POST" action="/logout">
-            <button class="nav-link bg-none border-none">log out</button>
+            <button class="nav-link bg-none border-none">Cerrar session</button>
           </form>
           <!-- <button class="nav-link" on:click={() => Usuario.set(null)} >Logout :{data.datos_usuario.nombre}</button> -->
         </li>
