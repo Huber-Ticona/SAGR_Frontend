@@ -7,7 +7,7 @@
     export let tipo_orden;
     $: if (tipo_doc) {
         console.log('Actualizando cuerpo-tabla...')
-    documentos = [];
+        documentos = [];
     }
     let new_modalExtraData = {
         documento : '',

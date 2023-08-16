@@ -259,3 +259,34 @@ export async function login(usuario, contra) {
         throw error;
     }
 }
+// DESPACHO ATRASADOS
+export async function obt_despacho_atrasado_defecto() {
+    try {
+        const response = await fetch(
+            PUBLIC_API_PROXY + "/despachos_atrasados_defecto",
+            { method: "POST", mode: "cors" }
+        );
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(
+            "Error al obtener datos despachos_atrasados_defecto del servidor."
+        );
+        throw error;
+    }
+}
+export async function obt_todos_despachos_atrasados() {
+    try {
+        const response = await fetch(
+            PUBLIC_API_PROXY + "/estadisticas/despachos-atrasados",
+            { method: "POST", mode: "cors" }
+        );
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(
+            "Error al obtener datos obt_todos_despachos_atrasados del servidor."
+        );
+        throw error;
+    }
+}

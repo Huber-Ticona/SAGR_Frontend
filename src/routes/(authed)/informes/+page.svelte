@@ -31,7 +31,76 @@
   <div>
 
     <div class="mb-2">Despacho Domicilio Atrasado <button class="btn-estadistica" on:click={() => toggleCollapse('contenido-despacho-atrasado')}>Ver</button></div>
-    <div id="contenido-despacho-atrasado" style="display: none;">Contenido Despacho Domicilio Atrasado...</div>
+    <div id="contenido-despacho-atrasado" style="display: none;">
+      Contenido Despacho Domicilio Atrasado...
+      <div class="box-parametros-atrasados">
+        <div class="row">
+          <div class="col">
+            <p>Minima cantidad de Dias de atraso</p>
+            <input type="number" id="rango1" min="1" value="3">
+            <label for="fecha1">Dias</label>
+
+          </div>
+          <div class="col">
+            <p>Maxima cantidad de Dias de atraso</p>
+            <input type="number" id="rango2" min="0" value="0">
+            <label for="fecha2">Dias</label>
+          </div>
+
+          <div class="col">
+            <button class="btn btn-secondary" on:click={visualizar_despachos_atrasados}>Visualizar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Doc</th>
+              <th scope="col" id="tb-despacho-nombre-columna">Folios</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Boletas <span class="badge bg-secondary">{lista_doc_atrasados.boletas.length}</span></th>
+              <td>
+                <div class="bol-despacho-atrasado">
+                  {#each lista_doc_atrasados.boletas as item ,index}
+                    <a class="btn btn-secondary mx-1 my-1" href="/documentos/boletas/{item[5]}"> {item[5]} </a>
+                  {/each}
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <th scope="row">Facturas <span class="badge bg-secondary">{lista_doc_atrasados.facturas.length}</span></th>
+              <td>
+                <div class="fact-despacho-atrasado">
+                  {#each lista_doc_atrasados.facturas as item ,index}
+                  <a class="btn btn-secondary mx-1 my-1" href="/documentos/facturas/{item[2]}"> {item[2]} </a>
+                {/each}
+                </div>
+              </td>
+
+            </tr>
+
+            <tr>
+              <th scope="row">Guias <span class="badge bg-secondary">{lista_doc_atrasados.guias.length}</span></th>
+              <td>
+                <div class="guia-despacho-atrasado">
+                  {#each lista_doc_atrasados.guias as item ,index}
+                  <a class="btn btn-secondary mx-1 my-1" href="/documentos/guias/{item[0]}"> {item[0]} </a>
+                  {/each}
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -39,7 +108,7 @@
 <script>
   import Panel from '../../../components/Panel.svelte';
   import Modal2 from '../../../components/Modal2.svelte';
-  import {obt_pendientes} from '$lib/datos'
+  import {obt_pendientes,obt_despacho_atrasado_defecto} from '$lib/datos'
   import {formatFecha} from '$lib/tools'
 
   // PROPS GLOBALES
@@ -52,7 +121,7 @@
   let venta={ boletas: [], facturas: [], guias: [] };
   let pendienteFecha1 = '2021-01-01';
   let pendienteFecha2 = formatFecha(new Date());
-
+  let lista_doc_atrasados = {boletas: [], facturas: [], guias: [] }
   async function mostrar_pendientes(){
     //const fecha = event.target.value;
     console.log('Fechas seleccionada:', pendienteFecha1 , pendienteFecha2);
@@ -63,12 +132,25 @@
       console.error("Error loading data:", error);
     } 
   }
+  async function visualizar_despachos_atrasados(){
+    console.log('visualizando atrasos...')
+    try {
+      lista_doc_atrasados = await obt_despacho_atrasado_defecto()
+      console.log(lista_doc_atrasados)
+    } catch (error) {
+      console.error("Error loading data obt_todos_despachos_atrasados:", error);
+    } 
+  }
+
+
 
 </script>
 <style>
   .btn-estadistica{
     width: 100px;
-    border: 1px solid red;
     border-radius:5px;
+  }
+  a{
+    text-decoration: none;
   }
 </style>
