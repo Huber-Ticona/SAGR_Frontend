@@ -12,7 +12,7 @@
 
   <div>
     <div class="mb-2">Lista Pendientes <button class="btn-estadistica" on:click={() => toggleCollapse('contenido-lista-pendientes')}>Ver</button></div>
-    <div id="contenido-lista-pendientes" style="display: none;">Contenido Lista Pendientes...
+    <div id="contenido-lista-pendientes" style="display: none;">
         <div class="box-fecha">
           <label for="fecha1">Desde:</label>
           <input class="input-fecha" type="date" bind:value={pendienteFecha1} >
@@ -23,6 +23,7 @@
   
         <div id="mensaje">
         </div>
+        <PanelSimbologia />
         <Panel {venta} />
         <Modal2 parametros_porteria={data.parametros_porteria} usuario={data.datos_usuario}/>
   
@@ -32,7 +33,7 @@
 
     <div class="mb-2">Despacho Domicilio Atrasado <button class="btn-estadistica" on:click={() => toggleCollapse('contenido-despacho-atrasado')}>Ver</button></div>
     <div id="contenido-despacho-atrasado" style="display: none;">
-      Contenido Despacho Domicilio Atrasado...
+      
       <div class="box-parametros-atrasados">
         <div class="row">
           <div class="col">
@@ -108,6 +109,7 @@
 <script>
   import Panel from '../../../components/Panel.svelte';
   import Modal2 from '../../../components/Modal2.svelte';
+  import PanelSimbologia from '../../../components/PanelSimbologia.svelte';
   import {obt_pendientes,obt_despacho_atrasado_defecto} from '$lib/datos'
   import {formatFecha} from '$lib/tools'
 

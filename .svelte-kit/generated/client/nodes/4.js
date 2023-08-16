@@ -1,1 +1,0 @@
-export { default as component } from "../../../../src/routes/(authed)/documentos/[tipo_doc]/[...extra_slug]/+page.svelte";
