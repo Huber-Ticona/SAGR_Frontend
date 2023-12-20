@@ -18,7 +18,7 @@
         <div class="modal-header" style="border:1px solid red;">
             <div>
                 <h5 class="modal-title" id="exampleModalLabel">{$modalExtraData.documento}: {$modalExtraData.folio}</h5>
-                <small>Fecha: {$modalExtraData.fecha}</small>
+                <small>Fecha: {$modalExtraData.fecha} | Monto total: {$modalExtraData.monto_total}</small>
             </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>

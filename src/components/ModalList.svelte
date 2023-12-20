@@ -84,6 +84,15 @@
                     {/each}
                     </div>
                 {/if}
+                
+                {#if vinculaciones.creditos}
+                    <div>
+                    Nota Creditos:
+                    {#each vinculaciones.creditos as credito}
+                        <a class="btn btn-secondary" data-sveltekit-reload href="/documentos/creditos/{credito}">{credito}</a>
+                    {/each}
+                    </div>
+                {/if}
 
             {/if}
             <!-- Guia: Vinculo a doc_venta -->

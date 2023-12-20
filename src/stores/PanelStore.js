@@ -14,6 +14,7 @@ const modalDataDefaults = {
     revisor: "",
     fecha: "",
     extra_data: ["Ninguno", 0],
+    monto_total: 0,
 };
 
 // Crea el store con el objeto modalData y sus valores predeterminados
@@ -25,5 +26,6 @@ const modalExtraDataDefault = {
     fecha: "",
     detalle: {},
     vinculaciones: {},
+    monto_total: 0,
 };
 export const modalExtraData = writable(modalExtraDataDefault);

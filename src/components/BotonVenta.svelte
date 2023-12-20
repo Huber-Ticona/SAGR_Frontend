@@ -15,6 +15,7 @@
     export let total;
     export let fecha;
     export let extra_data;
+    export let monto_total;
 
     async function openModal(tipo_doc,interno) {
         // Definimos los datos del modal.
@@ -30,14 +31,15 @@
           vendedor: vendedor,
           revisor:revisor,
           fecha: fecha,
-          extra_data : extra_data
+          extra_data : extra_data,
+          monto_total : monto_total
         };
         if(tipo_doc=='boleta' || tipo_doc =='factura'){
             console.log('<botonVenta> BOL-FACT DETECTADA -> Fetch items')
               console.log('tipo doc : ' + tipo_doc + ' | interno: '  + interno)
             try {
                 new_modalData.detalle = await obt_item_bol_fact(tipo_doc,interno);
-                console.log( new_modalData)
+                console.log("(BOTON VENTA-> NEW MODALDATA)", new_modalData)
                  // Actualizar el valor del store modalData
                 modalData.set(new_modalData);
                 
@@ -49,7 +51,7 @@
             console.log('guia interno: ',interno)
             try {
                 new_modalData.detalle = await obt_detalle_guia(interno);
-                console.log( new_modalData)
+                console.log("(BOTON VENTA-> NEW MODALDATA)", new_modalData)
                 // Actualizar el valor del store modalData
                 modalData.set(new_modalData);
             } catch (error) {

@@ -28,6 +28,7 @@
              total = {item[3]}
              fecha = {item[11]}
              extra_data = {[ "NINGUNO" , 0 ]}
+             monto_total = {item[3]}
              />
             {/each}
           </div>
@@ -50,6 +51,7 @@
               total = {item[3]}
               fecha = {item[11]}
               extra_data = {[ "NINGUNO" , 0 ]}
+              monto_total = {item[3]}
               />
             {/each}
           </div>
@@ -72,6 +74,7 @@
              total = {item[3]}
              fecha = {item[10]}
              extra_data = {[ item[6].replace(/^"(.*)"$/, '$1') , item[11]]}
+             monto_total = {item[3]}
              />
              
             {/each}

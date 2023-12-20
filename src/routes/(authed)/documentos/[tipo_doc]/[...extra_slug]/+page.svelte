@@ -9,7 +9,6 @@
     $: tipo_doc = $page.params.tipo_doc
     let params_list = $page.params.extra_slug.split('/');
     let folio = params_list[0]
-    let documentos = []
     // Obtener los argumentos de la ruta y los parámetros de la consulta
     let tipo_orden = $page.url.searchParams.get('tipo_orden')
 
@@ -46,7 +45,7 @@
 {/if}
 
 {#if tipo_doc}
-    <Tabla {tipo_doc} {folio} {tipo_orden} {documentos}/>
+    <Tabla {tipo_doc} {folio} {tipo_orden} />
     {#if ["boletas","facturas","guias"].includes(tipo_doc)}
         <Modal2 parametros_porteria={data.parametros_porteria} usuario={data.datos_usuario}/>
     {:else}

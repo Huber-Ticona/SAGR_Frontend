@@ -8,10 +8,14 @@
 
     let LocalModalData;
     let aux_detalle;
+    let vale_id = null
 
     // Suscribirse a los cambios del store
     $: {LocalModalData = $modalData ;
       aux_detalle = $modalData ? JSON.parse(JSON.stringify($modalData.detalle)) : null;
+      vale_id = $modalData.vinculaciones !== null ? $modalData.vinculaciones.vale_id : null
+      vale_id = vale_id === undefined ? null : vale_id
+      console.log("(VINCULACIONES -> VALE_ID)",vale_id)
       console.log('Modal2: Inicializando localmodaldata y auxdetalle.') }
 
     function increase(index) {
@@ -90,7 +94,7 @@
       new_dato.push(l_ret_anterior);
       new_dato.push(l_retirado); 
       new_dato.push(usuario.nombre); //SE ENVIA USUARIO
-
+      new_dato.push(vale_id) //vale id
       console.log(new_dato);
 
       const resp = await actualizar_retiro(LocalModalData.tipo_doc, LocalModalData.interno,new_dato)
@@ -127,7 +131,7 @@
         <div class="modal-header" style="border:1px solid red;">
             <div>
                 <h5 class="modal-title" id="exampleModalLabel">{LocalModalData.tipo_doc}: {LocalModalData.folio}</h5>
-                <small>Interno: {LocalModalData.interno} | Fecha: {LocalModalData.fecha}</small>
+                <small>Interno: {LocalModalData.interno} | Fecha: {LocalModalData.fecha} | Monto Total: {LocalModalData.monto_total}</small>
             </div>
           
           <button type="button" class="btn btn-secondary mx-2" on:click={dar_baja}>Dar de Baja</button>

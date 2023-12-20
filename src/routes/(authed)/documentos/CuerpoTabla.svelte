@@ -13,7 +13,8 @@
         documento : '',
         folio: 0,
         fecha : '',
-        detalle: {}
+        detalle: {},
+        monto_total : 0
     }
 
     function enviar_datos_modal(doc,folio,fecha,detalle,item){
@@ -23,7 +24,8 @@
         new_modalExtraData.fecha = fecha
         new_modalExtraData.detalle = JSON.parse(detalle)
         new_modalExtraData.vinculaciones = tipo_doc === 'ordenes' ? [ item[6],  item[7]] : [JSON.parse(item[4]).tipo_doc , JSON.parse(item[4]).doc_ref ]
-        console.log(new_modalExtraData)
+        new_modalExtraData.monto_total = tipo_doc === 'creditos' ? JSON.parse(detalle).monto_final : 0
+        console.log("new_modal_extra: ",new_modalExtraData)
         modalExtraData.set(new_modalExtraData)
     }
 </script>
@@ -61,6 +63,7 @@
         total = {0} 
         fecha = {item[1]}
         extra_data = {tipo_doc === 'guias' ? [ item[10].replace(/^"(.*)"$/, '$1') , item[11] ] :   [ "NINGUNO" , 0] }
+        monto_total = {tipo_doc === 'guias' ? JSON.parse(item[12]).monto_final  :  item[10] }
              />
         {:else}
         <button class="boton_panel" data-bs-toggle="modal" data-bs-target="#ModalExtra" 
